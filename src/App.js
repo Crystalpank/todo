@@ -8,23 +8,23 @@ import { useFetching } from './hooks/useFetching';
 
 function App() {
   const [tasks, setTasks] = useState([])
-  const [fetchingTasks, isLoadingTasks, errorTasks] = useFetching(async () => {
-    const response = await ToDoService.getAll()
-    setTasks(response.data.data)
-  })
+  // const [fetchingTasks, isLoadingTasks, errorTasks] = useFetching(async () => {
+  //   const response = await ToDoService.getAll()
+  //   setTasks(response.data.data)
+  // })
 
   const createTask = (newTask) => {
     setTasks([...tasks, newTask])
-    // const fetching = async () => {
-    //   await ToDoService.setTask(input.title, input.description, false)
-    // }
-    // fetching()
+    localStorage.setItem("tasks", JSON.stringify([...tasks, newTask]))
   }
   const clearAll = () => {
     setTasks([])
+    localStorage.setItem("tasks",JSON.stringify([]))
   }
   const clearComplete = () => {
-    setTasks(tasks.filter(t => !t.attributes.status))
+    const filteredTasks = tasks.filter(t => !t.attributes.status)
+    setTasks(filteredTasks)
+    localStorage.setItem("tasks", JSON.stringify(filteredTasks))
   }
   const toggleCheckbox = (task) => {
     task.attributes.status ? task.attributes.status = false : task.attributes.status = true
@@ -33,7 +33,8 @@ function App() {
   }
 
   useEffect(() => {
-    fetchingTasks()
+    // fetchingTasks()
+    localStorage.getItem("tasks") ? setTasks(JSON.parse(localStorage.getItem("tasks"))) : setTasks([])
   }, []);
 
 
