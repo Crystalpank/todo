@@ -5,9 +5,9 @@ const TodoList = ({ tasks, toggleCheckbox }) => {
         <div className="todo_content">
             {
                 tasks.map((task, index) =>
-                    <div key={task.attributes.title} className={task.attributes.status ? "todo_item complete" : "todo_item"}>
+                    <div key={54544+index} className={task.attributes.status ? "todo_item todo_item-complete" : "todo_item"}>
                         <div className="todo_item_btns">
-                            <input className="todo_checkbox" id={"checkbox" + index} type="checkbox" onChange={() => toggleCheckbox(task)} />
+                            <input className={task.attributes.status ? "todo_checkbox todo_checkbox-complete" : "todo_checkbox"} id={"checkbox" + index} type="checkbox" onChange={() => toggleCheckbox(task)} />
                             <label htmlFor={"checkbox" + index}></label>
                         </div>
                         <div className="todo_description">
